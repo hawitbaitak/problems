@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام أخطاء الطلبات - مكاني</title>
+    <title>هوية بيتك - نظام أخطاء الطلبات</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         :root {
@@ -25,104 +25,69 @@
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
+        /* تنسيق الهيدر المطابق للصورة */
+        .official-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             border-bottom: 2px solid var(--primary-color);
             padding-bottom: 15px;
+            margin-bottom: 25px;
         }
-        .header img {
-            max-height: 80px;
+        .header-col {
+            flex: 1;
         }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-            font-family: inherit;
-        }
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-        button {
-            background-color: var(--primary-color);
-            color: #fff;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            width: 100%;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #0b1d36;
-        }
-        .report-section {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 2px dashed #ccc;
-        }
+        .header-col.right { text-align: right; }
+        .header-col.center { text-align: center; }
+        .header-col.left { text-align: left; }
         
-        /* تنسيقات تقرير الـ PDF المخفي عن العرض */
-        #pdf-container {
-            display: none;
+        .header-col h2 { margin: 0; font-size: 24px; color: var(--primary-color); }
+        .header-col p { margin: 5px 0 0; font-size: 14px; font-weight: bold; color: #444; }
+        .header-col img { max-height: 70px; }
+
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-family: inherit;
         }
-        #pdf-content {
-            padding: 20px;
-            background: white;
-            color: black;
-            font-family: 'Arial', sans-serif;
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        button {
+            background-color: var(--primary-color); color: #fff; border: none; padding: 12px 20px;
+            border-radius: 5px; cursor: pointer; font-size: 16px; width: 100%; font-weight: bold; margin-top: 10px;
         }
-        #pdf-content .pdf-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        #pdf-content .pdf-header img {
-            height: 70px;
-        }
-        #pdf-content table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 0.5cm; /* المسافة المطلوبة للختم */
-            font-size: 12px;
-        }
-        #pdf-content th, #pdf-content td {
-            border: 1px solid #000;
-            padding: 8px;
-            text-align: center;
-        }
-        #pdf-content th {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        #pdf-content .pdf-footer {
-            text-align: left; /* الختم على اليسار */
-        }
-        #pdf-content .pdf-footer img {
-            width: 120px;
-            height: auto;
-        }
+        button:hover { background-color: #0b1d36; }
+        .report-section { margin-top: 40px; padding-top: 20px; border-top: 2px dashed #ccc; }
+        
+        /* تنسيقات تقرير الـ PDF */
+        #pdf-container { display: none; }
+        #pdf-content { padding: 20px; background: white; color: black; }
+        
+        /* استخدمت الجداول في هيدر الـ PDF لضمان توافقها 100% مع مكتبة الطباعة */
+        .pdf-header-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        .pdf-header-table td { border: none !important; padding: 0; vertical-align: middle; }
+        
+        #pdf-content table { width: 100%; border-collapse: collapse; margin-bottom: 0.5cm; font-size: 12px; }
+        #pdf-content th, #pdf-content td { border: 1px solid #000; padding: 8px; text-align: center; }
+        #pdf-content th { background-color: var(--primary-color); color: white; }
+        #pdf-content .pdf-footer { text-align: left; }
+        #pdf-content .pdf-footer img { width: 120px; height: auto; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="header">
-        <img src="logo1.png" alt="شعار مكاني">
-        <h2>نظام تسجيل أخطاء الطلبات</h2>
+    <div class="official-header">
+        <div class="header-col right">
+            <h2>هوية بيتك</h2>
+            <p>س.ت: 1010460174</p>
+        </div>
+        <div class="header-col center">
+            <img src="logo1.png" alt="شعار هوية بيتك">
+        </div>
+        <div class="header-col left" style="font-family: Arial, sans-serif;">
+            <h2>homeidentity</h2>
+            <p>C.R: 1010460174</p>
+        </div>
     </div>
 
     <form id="errorForm">
@@ -164,7 +129,7 @@
     </form>
 
     <div class="report-section">
-        <h3>استخراج تقرير الأخطاء (PDF)</h3>
+        <h3 style="text-align: center; color: var(--primary-color);">استخراج تقرير الأخطاء (PDF)</h3>
         <div class="grid-2">
             <div class="form-group">
                 <label>اختر الشهر المراد استخراج تقريره</label>
@@ -180,23 +145,37 @@
 
 <div id="pdf-container">
     <div id="pdf-content">
-        <div class="pdf-header">
-            <img src="logo1.png" alt="مكاني">
-            <h2 id="pdf-title">تقرير أخطاء الطلبات لشهر: </h2>
-        </div>
+        <table class="pdf-header-table">
+            <tr>
+                <td style="width: 33%; text-align: right;">
+                    <h2 style="margin: 0; color: #112b4e; font-size: 24px;">هوية بيتك</h2>
+                    <p style="margin: 5px 0 0; color: #444; font-weight: bold;">س.ت: 1010460174</p>
+                </td>
+                <td style="width: 34%; text-align: center;">
+                    <img src="logo1.png" alt="Logo" style="height: 60px;">
+                </td>
+                <td style="width: 33%; text-align: left; font-family: Arial, sans-serif;">
+                    <h2 style="margin: 0; color: #112b4e; font-size: 24px;">homeidentity</h2>
+                    <p style="margin: 5px 0 0; color: #444; font-weight: bold;">C.R: 1010460174</p>
+                </td>
+            </tr>
+        </table>
+        
+        <h3 id="pdf-title" style="text-align: center; border-bottom: 1px solid #ccc; padding-bottom: 10px;">تقرير أخطاء الطلبات لشهر: </h3>
+        
         <table id="pdf-table">
             </table>
+        
         <div class="pdf-footer">
-            <img src="logo2.png" alt="ختم مكاني">
+            <img src="logo2.png" alt="ختم هوية بيتك">
         </div>
     </div>
 </div>
 
 <script>
-    // ضعي رابط الـ Web App الخاص بك هنا
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxcnlEXRFcTzpVIv1gmuC2P--F3XntBv5ILK6XVbeOLp088hCkwGiWZtl7S1ORS/exec';
+    // الرابط الخاص بك
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzTv-_GlKSaGY7fyMqty_0CuLxwL-ML5haCvx8n4di4GRZutSJjtsa5zcQdWFBUl_D-/exec';
 
-    // إرسال البيانات لجوجل شيت
     document.getElementById('errorForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const submitBtn = document.getElementById('submitBtn');
@@ -225,20 +204,18 @@
                 alert('تم تسجيل الخطأ بنجاح!');
                 document.getElementById('errorForm').reset();
             } else {
-                alert('حدث مشكلة أثناء التسجيل.');
+                alert('حدث مشكلة أثناء التسجيل: ' + res.message); // سيظهر لك سبب المشكلة الفعلي لو حدثت
             }
             submitBtn.innerText = "تسجيل الخطأ في النظام";
             submitBtn.disabled = false;
         })
         .catch(err => {
-            alert('تم الإرسال (تأكد من مراجعة الشيت).');
-            document.getElementById('errorForm').reset();
+            alert('حدث خطأ في الاتصال بالسيرفر. تأكد من عمل New Deployment للكود.');
             submitBtn.innerText = "تسجيل الخطأ في النظام";
             submitBtn.disabled = false;
         });
     });
 
-    // جلب البيانات واستخراج PDF
     function generateReport() {
         const month = document.getElementById('reportMonth').value;
         if (!month) {
@@ -257,20 +234,18 @@
                 alert('لا توجد أخطاء مسجلة في هذا الشهر.');
             }
         })
-        .catch(err => alert('خطأ في جلب البيانات.'));
+        .catch(err => alert('خطأ في جلب البيانات من الشيت.'));
     }
 
     function buildAndPrintPDF(dataMatrix, month) {
         document.getElementById('pdf-title').innerText = `تقرير أخطاء الطلبات لشهر: ${month}`;
         
         let tableHTML = `<thead><tr>`;
-        // الرؤوس
         dataMatrix[0].forEach(header => {
             tableHTML += `<th>${header}</th>`;
         });
         tableHTML += `</tr></thead><tbody>`;
         
-        // البيانات
         for(let i = 1; i < dataMatrix.length; i++) {
             tableHTML += `<tr>`;
             dataMatrix[i].forEach(cell => {
@@ -282,20 +257,19 @@
         
         document.getElementById('pdf-table').innerHTML = tableHTML;
 
-        // إعدادات تصدير الـ PDF لتناسب ورقة A4
         const element = document.getElementById('pdf-content');
         element.style.display = 'block';
 
         const opt = {
             margin:       10,
-            filename:     `تقرير_مكاني_${month}.pdf`,
+            filename:     `تقرير_هوية_بيتك_${month}.pdf`,
             image:        { type: 'jpeg', quality: 0.98 },
             html2canvas:  { scale: 2 },
-            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' } // Landscape أفضل الجداول العريضة
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' }
         };
 
         html2pdf().set(opt).from(element).save().then(() => {
-            element.style.display = 'none'; // إخفاء الحاوية بعد الطباعة
+            element.style.display = 'none';
         });
     }
 </script>
